@@ -1,3 +1,4 @@
+
 int led = LOW;
 int buttonold = LOW;
 int ledstate = 0;
@@ -17,25 +18,24 @@ void setup()
   pinMode(6, OUTPUT);
   Serial.begin(9600);
 }
-
 void loop()
 { 
- if (digitalRead(12)==HIGH)
+  if (digitalRead(12)==HIGH)
   {
-  for (Brightness = 0; Brightness <= 255; Brightness += 1)
-  {
+   for (Brightness = 0; Brightness <= 255; Brightness += 1)
+   {
     digitalWrite(13, 1);
     delay(10*(Brightness)/255);
     digitalWrite(13, 0);
     delay(10-10*(Brightness)/255);
-  }
-  for (Brightness = 255; Brightness >= 0; Brightness -= 1)
-  {
+   }
+   for (Brightness = 255; Brightness >= 0; Brightness -= 1)
+   {
     digitalWrite(13, 1);
     delay(10*(Brightness)/255);
     digitalWrite(13, 0);
     delay(10-10*(Brightness)/255);
-  }
+   }
   }
   LEDstate = analogRead(A5);
   output = map(LEDstate, 0, 1023, 0, 255);
@@ -55,14 +55,17 @@ void loop()
      ledstate = LOW;
   }
   digitalWrite(7, ledstate);
-  int buttonnew = digitalRead(5);
-  delay(150);
-  Serial.println(buttonnew);
-  if ((buttonnew == HIGH) && (buttonold == LOW))
+  if (digitalRead(5)==1)
   {
-   led = !led;
+    int buttonnew = digitalRead(5);
+    delay(150);//debouncing
+    Serial.println(buttonnew);
+    if ((buttonnew == HIGH) && (buttonold == LOW))
+     {
+      led = !led;
+     }
+    digitalWrite(6,led);
+    buttonnew = LOW;
+    buttonold = buttonnew;
   }
-  digitalWrite(6,led);
-  buttonnew = LOW;
-  buttonold = buttonnew;
 }
