@@ -8,10 +8,10 @@ void delay_ms(int m)
 {
   for(int j=0;j<m;j++)
   {
-   delay(1); 
+   delay(0.1); 
    if (digitalRead(12))
    {
-    delay(100); 
+    delay(500); 
     n++;    		
     break;
    }
@@ -34,32 +34,32 @@ void loop()
 	  break;
      }
      analogWrite(6,i);//create pwm
-     delay(10); 
+     delay(5); 
     }
     if (digitalRead(12))
     {
-     delay(100);
+     delay(500);
      break;
     }
     for(i=255;i>=0;i--)
     {
      if (digitalRead(12))
      {
-      delay(100);
+      delay(500);
       n++;
       break;
      }
      analogWrite(6,i);
-     delay(10); 
+     delay(5); 
     }
     break; 
    }
    case 1:
    {
     analogWrite(6,i);//keep the i value and blink
-    delay_ms(1000);
+    delay_ms(10000);
     analogWrite(6,0);
-    delay_ms(1000);
+    delay_ms(10000);
     break; 
    }
   }  
